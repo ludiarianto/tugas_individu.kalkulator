@@ -1,174 +1,85 @@
-var display = document.getElementById("output");
-var buttons = document.getElementsByClassName("button");
-
-Array.prototype.forEach.call(buttons, function(button) {
-  button.addEventListener("click", function() {
-    if (button.textContent != "=" && button.textContent != "C" && button.textContent != "x" && button.textContent != "÷" && button.textContent != "sqrt" && button.textContent != "sq" && button.textContent != "%" && button.textContent != "<=" && button.textContent != "+/-" && button.textContent != "sin" && button.textContent != "cos" && button.textContent != "tan" && button.textContent != "log" && button.textContent != "ln" && button.textContent != "^" && button.textContent != "n!" && button.textContent != "π" && button.textContent != "exp" && button.textContent != "radians" && button.textContent != "degrees") {
-      display.value += button.textContent;
-    } else if (button.textContent === "=") {
-      equals();
-    } else if (button.textContent === "C") {
-      clear();
-    } else if (button.textContent === "x") {
-      multiply();
-    } else if (button.textContent === "÷") {
-      divide();
-    } else if (button.textContent === "+/-") {
-      plusMinus();
-    } else if (button.textContent === "<=") {
-      backspace();
-    } else if (button.textContent === "%") {
-      percent();
-    } else if (button.textContent === "π") {
-      pi();
-    } else if (button.textContent === "sq") {
-      square();
-    } else if (button.textContent === "sqrt") {
-      squareRoot();
-    } else if (button.textContent === "sin") {
-      sin();
-    } else if (button.textContent === "cos") {
-      cos();
-    } else if (button.textContent === "tan") {
-      tan();
-    } else if (button.textContent === "log") {
-      log();
-    } else if (button.textContent === "ln") {
-      ln();
-    } else if (button.textContent === "^") {
-      exponent();
-    } else if (button.textContent === "n!") {
-      factorial();
-    } else if (button.textContent === "exp") {
-      exp();
-    } else if (button.textContent === "radians") {
-      radians();
-    } else if (button.textContent === "degrees") {
-      degrees();
-    }
-  });
-});
-
-// function nextLine() {
-//   if(display.value.length > 19) {
-//     document.write("\n");
-//   }
-// }
-// ***button functions***
-function checkLength() {
-  if (display.value.length >= 23) {
-    display.value = "Overload Error";
-  }
+var selection = "rad"
+    
+function insert(num){
+    var text = document.form.textinput.value
+    document.form.textinput.value = text + num
 }
-
-function syntaxError() {
-  if (eval(display.value) == SyntaxError) {
-    display.value = "Syntax Error";
-  }
+ 
+function clean(){
+    document.form.textinput.value = ""
 }
-
-function equals() {
-  if ((display.value).indexOf("^") > -1) {
-    var base = (display.value).slice(0, (display.value).indexOf("^"));
-    var exponent = (display.value).slice((display.value).indexOf("^") + 1);
-    display.value = eval("Math.pow(" + base + "," + exponent + ")");
-  } else {
-    display.value = eval(display.value);
-    checkLength();
-    syntaxError();
-  }
+    
+function calculate(){
+    var text = document.form.textinput.value
+    document.form.textinput.value = eval(text)
 }
-
-function clear() {
-  display.value = "";
+    
+function back(){
+     var text = document.form.textinput.value
+     document.form.textinput.value = text.substring(0,text.length-1)
 }
-
-function backspace() {
-  display.value = display.value.substring(0, display.value.length - 1);
+    
+function calc_sin(){
+     var text = document.form.textinput.value
+     if (selection == "rad"){
+       document.form.textinput.value = Math.sin(text)
+     } else if (selection == "deg"){
+       document.form.textinput.value = Math.sin(text * (Math.PI / 180))
+     }
+   }
+    
+function calc_cos(){
+   var text = document.form.textinput.value
+   if (selection == "rad"){
+     document.form.textinput.value = Math.cos(text)
+   } else if (selection == "deg"){
+     document.form.textinput.value = Math.cos(text * (Math.PI / 180))
+   }
 }
-
-function multiply() {
-  display.value = display.value + "*";
+    
+function calc_tan(){
+   var text = document.form.textinput.value
+   if (selection == "rad"){
+     document.form.textinput.value = Math.tan(text)
+   } else if (selection == "deg"){
+     document.form.textinput.value = Math.tan(text * (Math.PI / 180))
+   }
 }
-
-function divide() {
-  display.value = display.value + "/";
+function calc_sqrt(){
+var text = document.form.textinput.value
+document.form.textinput.value = Math.sqrt(text)
 }
-
-function plusMinus() {
-  if (display.value.charAt(0) === "-") {
-    display.value = display.value.slice(1);
-  } else {
-    display.value = "-" + display.value;
-  }
+function calc_percent(){
+var text = document.form.textinput.value
+document.form.textinput.value = text/100
 }
-
-function factorial() {
-  var result = 1;
-  if (display.value === 0) {
-    display.value = "1";
-  } else if (display.value < 0) {
-    display.value = "undefined";
-  } else {
-    var result = 1;
-    for (var i = display.value; i > 0; i--) {
-      result = result * i;
-    }
-    display.value = result;
-  }
+function change_label_selection(){
+   var label = document.getElementById("info")
+   label.innerHTML = "<b>"+selection.toUpperCase()+"</b>"
 }
-
-function pi() {
-  // if(display.value === "") {
-  //   display.value = Math.PI;
-  // }
-  display.value = (display.value * Math.PI);
+function calc_deg(){
+   var element = document.getElementById("deg")
+   element.style = "border: solid red"
+   var element2 = document.getElementById("rad")
+   element2.style = "border solid"
+  
+   selection = "deg" //Set selection to deg
+   change_label_selection()
 }
-
-function square() {
-  display.value = eval(display.value * display.value);
+function calc_rad(){
+   var element2 = document.getElementById("rad")
+   element2.style = "border: solid red"
+   var element = document.getElementById("deg")
+   element.style = "border: solid"
+  
+   selection = "rad" //Set selection to rad
+   change_label_selection()
 }
-
-function squareRoot() {
-  display.value = Math.sqrt(display.value);
+function calc_log(){
+    var text = document.form.textinput.value
+    document.form.textinput.value = Math.log(text)
 }
-
-function percent() {
-  display.value = display.value / 100;
-}
-
-function sin() {
-  display.value = Math.sin(display.value);
-}
-
-function cos() {
-  display.value = Math.cos(display.value);
-}
-
-function tan() {
-  display.value = Math.tan(display.value);
-}
-
-function log() {
-  display.value = Math.log10(display.value);
-}
-
-function ln() {
-  display.value = Math.log(display.value);
-}
-
-function exponent() {
-  display.value = display.value + "^";
-}
-
-function exp() {
-  display.value = Math.exp(display.value);
-}
-
-function radians() {
-  display.value = display.value * (Math.PI / 180);
-}
-
-function degrees() {
-  display.value = display.value * (180 / Math.PI);
+function calc_exp(){
+    var text = document.form.textinput.value
+    document.form.textinput.value = Math.exp(text)
 }
