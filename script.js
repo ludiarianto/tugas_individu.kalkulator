@@ -60,11 +60,13 @@ function checkLength() {
     display.value = "Overload Error";
   }
 }
+
 function syntaxError() {
   if (eval(display.value) == SyntaxError) {
     display.value = "Syntax Error";
   }
 }
+
 function equals() {
   if ((display.value).indexOf("^") > -1) {
     var base = (display.value).slice(0, (display.value).indexOf("^"));
@@ -76,18 +78,23 @@ function equals() {
     syntaxError();
   }
 }
+
 function clear() {
   display.value = "";
 }
+
 function backspace() {
   display.value = display.value.substring(0, display.value.length - 1);
 }
+
 function multiply() {
   display.value = display.value + "*";
 }
+
 function divide() {
   display.value = display.value + "/";
 }
+
 function plusMinus() {
   if (display.value.charAt(0) === "-") {
     display.value = display.value.slice(1);
@@ -95,6 +102,7 @@ function plusMinus() {
     display.value = "-" + display.value;
   }
 }
+
 function factorial() {
   var result = 1;
   if (display.value === 0) {
@@ -109,45 +117,58 @@ function factorial() {
     display.value = result;
   }
 }
+
 function pi() {
   // if(display.value === "") {
   //   display.value = Math.PI;
   // }
   display.value = (display.value * Math.PI);
 }
+
 function square() {
   display.value = eval(display.value * display.value);
 }
+
 function squareRoot() {
   display.value = Math.sqrt(display.value);
 }
+
 function percent() {
   display.value = display.value / 100;
 }
+
 function sin() {
   display.value = Math.sin(display.value);
 }
+
 function cos() {
   display.value = Math.cos(display.value);
 }
+
 function tan() {
   display.value = Math.tan(display.value);
 }
+
 function log() {
   display.value = Math.log10(display.value);
 }
+
 function ln() {
   display.value = Math.log(display.value);
 }
+
 function exponent() {
   display.value = display.value + "^";
 }
+
 function exp() {
   display.value = Math.exp(display.value);
 }
+
 function radians() {
   display.value = display.value * (Math.PI / 180);
 }
+
 function degrees() {
   display.value = display.value * (180 / Math.PI);
 }
